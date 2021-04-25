@@ -39,8 +39,7 @@ void saveData(Product p[], int count){
 	FILE* fp;
 
 	//중량 가격 제품명
-	//fp= fopen("product.txt","wt");
-	fp= fopen("product1.txt","wt");
+	fp= fopen("product.txt","wt");
         for (int i=0; i<count; i++) {
                 fprintf(fp, "%d %d %s\n", p[i].weight, p[i].price, p[i].name);
         }	
@@ -56,10 +55,18 @@ int loadData(Product *p){
 	FILE*fp;
 
 	//파일 내용을 읽어와서 배열에 값 추가하기
-
-
-
-
+	char name[100];
+        char blank[10];
+        fp = fopen("product.txt", "r");
+        while(!feof(fp)){
+                //p = (Product*)malloc(sizeof(Product));
+                fscanf(fp, "%d %d", &p->weight, &p->price);
+                fscanf(fp, "%c", blank);
+                fgets(name, 100, fp);
+                name[strlen(name)-1]='\0';
+                strcpy(p->name, name);
+        }
+        count++;
 	printf("=> 로딩 성공!\n");
 	return count;
 }
